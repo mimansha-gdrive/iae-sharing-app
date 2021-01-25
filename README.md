@@ -3,28 +3,31 @@ Google Drive allows users to store files in the cloud, synchronize files across 
 files with users and google groups. It also allows to create the nested directory structure and
 upload files to any part of the directory structure. Further, one can share files and folders either
 specific files/folders or the entire folder (including all files and nested folders) with other users
-and groups.
-Given a predefined folder structure (folder name: IAE Interview Folder) for 
-“interviewtest1.m@gmail.com” account which contains files and nested folders, the task was to create 
-an interactive java application with certain features listed below.
+and groups.   
 
-This interactive Java application is developed using Spring Boot and React. It 
-uses [gdrive v3 client](https://developers.google.com/drive/api/v3/quickstart/java) to integrate 
-with Google drive. Users is required to authenticate using OAuth2, provide permissions of their drive before they can 
-access the drive resources. Following features are currently implemented:  
-1. Browse google drive of an account. Currently, the test account “interviewtest1.m@gmail.com” is integrated. 
+Given a predefined folder structure (folder name: IAE Interview Folder) for `interviewtest1.m@gmail.com` account which 
+contains files and nested folders, the task was to create an interactive java application with certain features listed below.
 
-2. Users can select a resource (file/folder) and transfer the ownership to another user. Currently the user  "interviewtest2.m@gmail.com"
-is used as a "transfer-to" account. The ownership transfer applies to all the resources under the selected folder. If 
-user doesn't own a resource, it is not used in the transfer. 
+The app is developed using Spring Boot and React with material design UI components. 
+It uses [gdrive v3 client](https://developers.google.com/drive/api/v3/quickstart/java) to integrate 
+with Google drive. Users are required to authenticate using OAuth2, provide permissions to access their drives before they can 
+access the drive resources.   
+
+Following features are currently implemented:  
+1. Browse Google Drive of an account. Currently, the test account `interviewtest1.m@gmail.com` is integrated. 
+
+2. Users can select a resource (file/folder) and transfer the ownership to another user within the same domain. 
+Currently the user  `interviewtest2.m@gmail.com` is used as a "transfer-to" account. 
+The ownership transfer applies to all the resources under the selected folder. If user doesn't own a resource, 
+it is not used in the transfer. 
 
 4. Search for a file or folder by exact name match and partial match. The current implementation uses "contains" [query 
 term](https://developers.google.com/drive/api/v3/ref-search-terms). 
 
 
 ## Demo
-A working application has been deployed in [Heroku](https://gdrive-sharing-app.herokuapp.com/). Please navigate to https://gdrive-sharing-app.herokuapp.com/ to 
-see it in action.    
+A working application has been deployed in [Heroku](https://gdrive-sharing-app.herokuapp.com/). 
+Please navigate to https://gdrive-sharing-app.herokuapp.com/ to see it in action.    
 
 The app has already been authenticated for the tester account and holds/refreshes the token. 
 
