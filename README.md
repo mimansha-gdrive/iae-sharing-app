@@ -54,7 +54,7 @@ Navigate to http://localhost:8080/
 The tests run automatically as part of Gradle build. They can be run explicitly using 
 `./gradlew test`
 
-## Built With
+## Tools
 * [Spring Boot](https://spring.io/projects/spring-boot) - The web framework used
 * [Gradle](https://gradle.org/) - Dependency Management
 * [React](https://reactjs.org/) - User Interface
@@ -70,4 +70,15 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 ![Transfer ownership](docs/transfer-ownersip-dialog.png)
 
 * Transfer ownership response
-![Transfer ownership response](docs/transfer-ownership-confirmation.png) 
+![Transfer ownership response](docs/transfer-ownership-confirmation.png)
+
+## References
+https://developers.google.com/drive/api/v3/quickstart/java
+https://spring.io/guides/gs/gradle/#scratch
+https://material-ui.com/components/tree-view/
+https://changelog.com/posts/install-node-js-with-homebrew-on-os-x
+https://dev.to/rossanodan/building-a-navigation-drawer-with-material-ui-and-react-router-dom-1j6l
+https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
+
+
+ 
