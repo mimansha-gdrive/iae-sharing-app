@@ -8,9 +8,9 @@ Given a predefined folder structure (folder name: IAE Interview Folder) for
 “interviewtest1.m@gmail.com” account which contains files and nested folders, the task was to create 
 an interactive java application with certain features listed below.
 
-This is an interactive Java application developed using Spring Boot and React. It 
+This interactive Java application is developed using Spring Boot and React. It 
 uses [gdrive v3 client](https://developers.google.com/drive/api/v3/quickstart/java) to integrate 
-with Google drive. Users is required to authenticate using Auth2, provide permissions of their drive before they can 
+with Google drive. Users is required to authenticate using OAuth2, provide permissions of their drive before they can 
 access the drive resources. Following features are currently implemented:  
 1. Browse google drive of an account. Currently, the test account “interviewtest1.m@gmail.com” is integrated. 
 
@@ -68,7 +68,7 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 * [Gradle](https://gradle.org/) - Dependency Management
 * [React](https://reactjs.org/) - User Interface
 
-## Screenshots
+## Navigation flow
 * Create API Credentials
 ![Browse Google drive](docs/drive-access.png)
 
@@ -90,8 +90,14 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 * Transfer ownership response
 ![Transfer ownership response](docs/transfer-ownership-confirmation.png)
 
+## Assumed Constraint
+1. Only the google drive folder structure for account “interviewtest1.m@gmail.com” is integrated to view in app.
+2. Files can only be transferred to account “interviewtest2.m@gmail.com”
+3. File trasnfer can't happen between accounts of same domain
+
 ## References
 https://developers.google.com/drive/api/v3/quickstart/java  
+https://developers.google.com/identity/protocols/oauth2  
 https://spring.io/guides/gs/gradle/#scratch  
 https://material-ui.com/components/tree-view/  
 https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
