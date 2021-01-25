@@ -39,16 +39,25 @@ The app has already been authenticated for the tester account and holds/refreshe
 
 ## Installation
 1. Clone the repo  
-`git clone git@github.com:mimansha-gdrive/iae-sharing-app.git` 
+`git clone git@github.com:mimansha-gdrive/iae-sharing-app.git`   
 
-2. Build  
+2. Enable Google Drive API access  
+ a. Go to [Drive API Console](https://console.cloud.google.com/apis/dashboard?dcccrf=1)
+ b. Navigate to Credentials left sidebar and use CREATE CREDENTIALS button to create a new desktop credential  
+ c. Download the generated credentials and store it under src/main/resources as credentials.json     
+ d. See the screenshots section for an example.   
+ 
+3. Build  
 `cd sharing-app`  
 `./gradlew clean build`
 
-3. Run  
+4. Run the app  
 `cd sharing-app`  
 `./gradlew bootRun`  
-Navigate to http://localhost:8080/
+
+5. Navigate to http://localhost:8080/. The very first time you will see credentials request in the launched terminal (see screenshot)
+Follow the link to provide Google Drive API access. The tokens will be stored locally under /tokens and will be refreshed 
+automatically from the next usage. 
 
 ## Running the tests
 The tests run automatically as part of Gradle build. They can be run explicitly using 
@@ -60,6 +69,15 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 * [React](https://reactjs.org/) - User Interface
 
 ## Screenshots
+* Create API Credentials
+![Browse Google drive](docs/drive-access.png)
+
+* Authenticate the first time 
+![Drive API](docs/first-time-auth.png)
+
+* Provide Access 
+![Browse Google drive](docs/provide-access.png)
+
 * Browse Google drive
 ![Browse Google drive](docs/browse-drive.png)
 
@@ -73,12 +91,13 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 ![Transfer ownership response](docs/transfer-ownership-confirmation.png)
 
 ## References
-https://developers.google.com/drive/api/v3/quickstart/java
-https://spring.io/guides/gs/gradle/#scratch
-https://material-ui.com/components/tree-view/
-https://changelog.com/posts/install-node-js-with-homebrew-on-os-x
-https://dev.to/rossanodan/building-a-navigation-drawer-with-material-ui-and-react-router-dom-1j6l
-https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
+https://developers.google.com/drive/api/v3/quickstart/java  
+https://spring.io/guides/gs/gradle/#scratch  
+https://material-ui.com/components/tree-view/  
+https://changelog.com/posts/install-node-js-with-homebrew-on-os-x  
+https://dev.to/rossanodan/building-a-navigation-drawer-with-material-ui-and-react-router-dom-1j6l  
+https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku  
+
 
 
  
