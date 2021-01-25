@@ -11,9 +11,8 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
 import com.google.common.base.Preconditions;
+import com.netflix.iae.Utils;
 import com.netflix.iae.config.SharingAppConfig;
-
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +45,18 @@ public class SharingHelper {
 
   Drive getDrive() throws IOException, GeneralSecurityException {
     return new Drive.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, appConfig.driveCredential())
+            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, Utils.getDriveCredential())
         .setApplicationName(SharingAppConfig.APPLICATION_NAME)
         .build();
   }
 
+  /**
+   * Check if the file is owned by the currently authenticated user.
+   * @param fileId resource id
+   * @return boolean result
+   * @throws IOException
+   * @throws GeneralSecurityException
+   */
   boolean checkOwner(String fileId) throws IOException, GeneralSecurityException {
     final Drive drive = getDrive();
     File result = drive.files().get(fileId).setFields("id, name, owners").execute();
@@ -59,6 +64,13 @@ public class SharingHelper {
     return result.getOwners().get(0).getMe();
   }
 
+  /**
+   * Lists all the children of a folder recursively to provide a tree structure (hierarchy) on the files.
+   *
+   * @param allFiles all the file ids along with their parent ids
+   * @param fileId starting id (treated as root)
+   * @return
+   */
   List<String> getAllChildren(final List<FileDetail> allFiles, final String fileId) {
     // Find the root node matching the fileId
     Queue<FileDetail> queue = new LinkedList<>();
@@ -92,8 +104,19 @@ public class SharingHelper {
     return resultList;
   }
 
+  /**
+   * Update the permissions on the files.
+   * The permission update will transfer the ownership of all the files to the new user.
+   * Permissions are only updated if the current owner is the actual owner of the resource.
+   *
+   * @param fileIds list of file resource identified by ids
+   * @param email email of the new owner
+   * @throws IOException
+   * @throws GeneralSecurityException
+   */
   void updatePermissionsInBatch(final List<String> fileIds, final String email)
       throws IOException, GeneralSecurityException {
+    // Callback for the batch sharing update requests
     JsonBatchCallback<Permission> callback =
         new JsonBatchCallback<Permission>() {
           @Override
@@ -111,14 +134,15 @@ public class SharingHelper {
     BatchRequest batch = drive.batch();
 
     for (String fileId : fileIds) {
-      Permission userPermission =
-          new Permission().setType("user").setRole("owner").setEmailAddress(email);
-      drive
-          .permissions()
-          .create(fileId, userPermission)
-          .setFields("id")
-          .setTransferOwnership(true)
-          .queue(batch, callback);
+      if (checkOwner(fileId)) {
+        Permission userPermission = new Permission().setType("user").setRole("owner").setEmailAddress(email);
+        drive
+                .permissions()
+                .create(fileId, userPermission)
+                .setFields("id")
+                .setTransferOwnership(true)
+                .queue(batch, callback);
+      }
     }
 
     batch.execute();

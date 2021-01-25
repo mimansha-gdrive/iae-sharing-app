@@ -47,16 +47,13 @@ public class SharingService {
    * @throws IOException IOException.
    * @throws GeneralSecurityException GeneralSecurityException.
    */
-  public void changeOwner(final String fileId, final String newOwnerEmail)
-      throws IOException, GeneralSecurityException {
+  public void changeOwner(final String fileId, final String newOwnerEmail) throws IOException, GeneralSecurityException {
     log.info("Request to change owner of file '{}' to user '{}'", fileId, newOwnerEmail);
 
     Preconditions.checkArgument(fileId != null && !fileId.isEmpty(), "Invalid fileId.");
-    Preconditions.checkArgument(
-        newOwnerEmail != null && !newOwnerEmail.isEmpty(), "Invalid email.");
+    Preconditions.checkArgument(newOwnerEmail != null && !newOwnerEmail.isEmpty(), "Invalid email.");
     Preconditions.checkArgument(Utils.isValidEmailAddress(newOwnerEmail), "Invalid email.");
-    Preconditions.checkArgument(
-        sharingHelper.checkOwner(fileId), "Not the owner of requested resource.");
+    Preconditions.checkArgument(sharingHelper.checkOwner(fileId), "Not the owner of requested resource.");
 
     // 1. List all the files under the given fileId
     List<String> children = sharingHelper.getAllChildren(listFiles(), fileId);

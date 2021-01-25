@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 class GdriveSharingApplicationTests {
-  
+
+  @Test
   void contextLoads() {
 
   }

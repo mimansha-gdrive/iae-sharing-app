@@ -6,7 +6,6 @@ import com.google.common.base.Preconditions;
 import com.netflix.iae.service.FileDetail;
 import com.netflix.iae.service.SearchResult;
 import com.netflix.iae.service.SharingService;
-
 import java.util.HashMap;
 import java.util.List;
 import org.slf4j.Logger;
