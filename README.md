@@ -32,6 +32,8 @@ The app has already been authenticated for the tester account and holds/refreshe
 1. Java 8
 2. Gradle 6.5+
 3. Node v15+
+4. API access enabled for Google drive
+5. OAUTH2 configured using Google API Console
 
 
 ## Design
@@ -90,10 +92,15 @@ The tests run automatically as part of Gradle build. They can be run explicitly 
 * Transfer ownership response
 ![Transfer ownership response](docs/transfer-ownership-confirmation.png)
 
-## Assumed Constraint
-1. Only the google drive folder structure for account “interviewtest1.m@gmail.com” is integrated to view in app.
-2. Files can only be transferred to account “interviewtest2.m@gmail.com”
-3. File trasnfer can't happen between accounts of same domain
+## Assumptions 
+1. The biggest assumption made is to tie the application with two predefined tester accounts. This makes the app inflexible to use 
+with any user of the Google Drive. The OATH2 credentials are configured for the first test user when the app is launched for the first time, 
+and ownership transfer happens ONLY with the second test user.
+
+2. Google drive does not support transfers of resources across domains (gmail.com owner can not transfer file ownerships
+to .netflix.com users). There are some ways around it by creating a shared drive etc. However, that is not supported for
+gmail.com at this point. 
+
 
 ## References
 https://developers.google.com/drive/api/v3/quickstart/java  
